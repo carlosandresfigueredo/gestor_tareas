@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class TareasService {
 
-  private API_URL = 'http://localhost:3000/tareas';
+  private API_URL = 'https://gestortareas-production-4b05.up.railway.app/';
 
   constructor(private http: HttpClient) {}
 

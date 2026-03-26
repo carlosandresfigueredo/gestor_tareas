@@ -1,6 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2');
+require("dotenv").config();
+
+const express = require("express");
+const cors = require("cors");
+const mysql = require("mysql2");
 
 const app = express();
 
@@ -8,29 +10,30 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'tareas_db2',
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
 });
 
 db.connect((err) => {
   if (err) {
-    console.log('❌ Error conexión:', err);
+    console.log("❌ Error conexión:", err);
   } else {
-    console.log('✅ Conectado a MySQL');
+    console.log("✅ Conectado a MySQL");
   }
 });
 
 // GET FILTRADO POR USUARIO
-app.get('/tareas', (req, res) => {
+app.get("/tareas", (req, res) => {
   const { idUsuario } = req.query;
 
-  let sql = 'SELECT * FROM tareas';
+  let sql = "SELECT * FROM tareas";
   let params = [];
 
   if (idUsuario) {
-    sql = 'SELECT * FROM tareas WHERE idUsuario = ?';
+    sql = "SELECT * FROM tareas WHERE idUsuario = ?";
     params = [idUsuario];
   }
 
@@ -41,7 +44,7 @@ app.get('/tareas', (req, res) => {
 });
 
 //  POST
-app.post('/tareas', (req, res) => {
+app.post("/tareas", (req, res) => {
   const { id, titulo, resumen, expira, idUsuario, completada } = req.body;
 
   const sql = `
@@ -49,36 +52,40 @@ app.post('/tareas', (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(sql, [id, titulo, resumen, expira, idUsuario, completada], (err, result) => {
-    if (err) return res.status(500).json(err);
-    res.json({ mensaje: 'Tarea creada' });
-  });
+  db.query(
+    sql,
+    [id, titulo, resumen, expira, idUsuario, completada],
+    (err, result) => {
+      if (err) return res.status(500).json(err);
+      res.json({ mensaje: "Tarea creada" });
+    },
+  );
 });
 
 //  COMPLETAR
-app.put('/tareas/:id', (req, res) => {
+app.put("/tareas/:id", (req, res) => {
   const { id } = req.params;
 
-  const sql = 'UPDATE tareas SET completada = 1 WHERE id = ?';
+  const sql = "UPDATE tareas SET completada = 1 WHERE id = ?";
 
   db.query(sql, [id], (err, result) => {
     if (err) return res.status(500).json(err);
-    res.json({ mensaje: 'Tarea completada' });
+    res.json({ mensaje: "Tarea completada" });
   });
 });
 
 // ELIMINAR
-app.delete('/tareas/:id', (req, res) => {
+app.delete("/tareas/:id", (req, res) => {
   const { id } = req.params;
 
-  const sql = 'DELETE FROM tareas WHERE id = ?';
+  const sql = "DELETE FROM tareas WHERE id = ?";
 
   db.query(sql, [id], (err, result) => {
     if (err) return res.status(500).json(err);
-    res.json({ mensaje: 'Tarea eliminada' });
+    res.json({ mensaje: "Tarea eliminada" });
   });
 });
 
-app.listen(3000, () => {
-  console.log('Servidor en http://localhost:3000');
+app.listen(process.env.PORT || 3000, () => {
+  console.log("Servidor corriendo");
 });

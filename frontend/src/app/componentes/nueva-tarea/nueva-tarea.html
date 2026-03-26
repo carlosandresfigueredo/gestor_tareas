@@ -1,0 +1,12 @@
+<div class="fondo" (click)="cerrar.emit()"></div>
+
+<dialog open>
+  <h2>Agregar Tarea</h2>
+
+  <input [(ngModel)]="titulo" placeholder="Título" />
+  <textarea [(ngModel)]="resumen"></textarea>
+  <input type="date" [(ngModel)]="fecha" />
+
+  <button (click)="cerrar.emit()">Cancelar</button>
+  <button (click)="guardar()">Crear</button>
+</dialog>

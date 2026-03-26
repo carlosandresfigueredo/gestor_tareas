@@ -1,0 +1,11 @@
+<app-tarjeta>
+  <article>
+    <h2>{{ tarea.titulo }}</h2>
+    <time>{{ tarea.expira | date: 'fullDate' }}</time>
+    <p>{{ tarea.resumen }}</p>
+
+    <!-- 🔥 ahora emite al padre -->
+    <button (click)="completar.emit(tarea.id)">Terminada</button>
+    <button (click)="eliminar.emit(tarea.id)">Eliminar</button>
+  </article>
+</app-tarjeta>

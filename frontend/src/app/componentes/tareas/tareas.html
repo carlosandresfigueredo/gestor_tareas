@@ -1,0 +1,19 @@
+@if (mostrarForm) {
+  <app-nueva-tarea [idUsuario]="idUsuario" (cerrar)="cerrarForm()" (creada)="cargar()" />
+  
+}
+
+<section id="tareas">
+  <header>
+    <h2>Tareas de {{ nombre }}</h2>
+    <button (click)="abrirForm()">Nueva tarea</button>
+  </header>
+
+  <ul>
+    @for (t of tareas; track t.id) {
+      <li>
+        <app-tarea [tarea]="t" (completar)="completar($event)" (eliminar)="eliminar($event)" />
+      </li>
+    }
+  </ul>
+</section>

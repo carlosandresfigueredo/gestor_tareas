@@ -1,6 +1,6 @@
 
 export default {
-  basePath: '/gestor_tareas_angular',
+  basePath: '/gestor_tareas',
   supportedLocales: {
   "en-US": ""
 },

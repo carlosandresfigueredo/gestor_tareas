@@ -3,7 +3,7 @@ export default `<!doctype html>
   <head>
     <meta charset="utf-8"/>
     <title>Angular Esencial</title>
-    <base href="/gestor_tareas_angular/"/>
+    <base href="/gestor_tareas/"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="icon" type="image/x-icon" href="favicon.ico"/>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -15,6 +15,6 @@ export default `<!doctype html>
 </script>
     <app-encabezado></app-encabezado>
     <app-root></app-root>
-  <script src="main-ZIAWYYBF.js" type="module"></script></body>
+  <script src="main-OPFJHTX3.js" type="module"></script></body>
 </html>
 `;
